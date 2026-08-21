@@ -30,7 +30,7 @@
       <p class="subtitle">Code, model checkpoints, and full supplementary materials will be released after review.</p>
       <div class="chip-row">
         <span class="chip">Hierarchical RL</span>
-        <span class="chip">Arm-Mediated vs Whole-Body</span>
+        <span class="chip">Arm-Mediated Pushing</span>
         <span class="chip">Point-Cloud Contact Sampling</span>
         <span class="chip">OOD Generalization</span>
       </div>
@@ -49,15 +49,8 @@
     <section class="panel">
       <h2>Abstract</h2>
       <p>
-        Non-prehensile manipulation enables robots to reposition objects through contact without grasping. We study goal-directed pushing with a quadrupedal robot manipulator using a hierarchical RL framework that separates task-level decisions from low-level stabilization. A high-level policy predicts base velocity and arm joint targets; a pretrained locomotion prior executes stable movement, while a dedicated arm controller tracks arm targets. We further introduce point-cloud contact sampling to guide exploration toward feasible interactions for complex geometries. Under a shared protocol, we compare arm-mediated (AM) and whole-body (WB) pushing across object families and distribution shifts. AM improves success in most settings and shows stronger robustness, especially under physics shifts.
+        Non-prehensile manipulation enables robots to reposition objects through contact across diverse geometries and physical properties without relying on grasping. We study goal-directed arm-mediated object pushing with a quadrupedal mobile manipulator and propose a hierarchical reinforcement learning framework that decouples task-level decision making from low-level dynamic stabilization. The high-level policy outputs target base velocities and arm-joint targets. A pretrained low-level locomotion policy tracks the base command to produce dynamically stable locomotion, while a separate arm controller tracks the commanded joint targets. To guide exploration toward feasible robot-object interactions, we introduce geometry-guided contact sampling from the object point cloud and use the sampled target to shape end-effector reaching before shifting emphasis toward the object-pose objective. We evaluate performance and robustness across object families and distribution shifts. The learned policy remains effective under geometry and physics variation and generalizes to unseen everyday-object geometries. Ablations further show that contact guidance, the staged reward curriculum, and online adaptation are important for learning and transfer.
       </p>
-    </section>
-
-    <section class="panel">
-      <h2>Overview Video</h2>
-      <video controls playsinline preload="metadata">
-        <source src="./static/media/videos/Final%20final%20final.mp4" type="video/mp4">
-      </video>
     </section>
 
     <section class="panel">
@@ -65,7 +58,7 @@
       <div class="image-grid">
         <figure>
           <img src="./systemdiagram-Page-4.drawio.png" alt="System diagram">
-          <figcaption><strong>Hierarchical pushing pipeline.</strong> A high-level policy outputs actions for the base and arm. During training, a privileged encoder produces a latent embedding <em>z</em> that regularizes and supervises a history-based encoder used at test time. The high-level policy generates base velocity commands and arm joint targets; base commands are executed through a pretrained low-level locomotion controller conditioned on proprioception, while arm commands are applied directly. Both whole-body and arm-mediated pushing are trained and evaluated in the same environments with identical goals and object sampling.</figcaption>
+          <figcaption><strong>Hierarchical arm-mediated pushing pipeline.</strong> A high-level policy outputs actions for the base and arm. During training, a privileged encoder produces a latent embedding <em>z</em> that regularizes and supervises a history-based encoder used at test time. The high-level policy generates base velocity commands and arm joint targets; base commands are executed through a pretrained low-level locomotion controller conditioned on proprioception, while arm commands are applied directly.</figcaption>
         </figure>
       </div>
     </section>
@@ -73,12 +66,12 @@
     <section class="panel">
       <h2>Method</h2>
       <p>
-        The policy stack has two levels: a high-level goal-conditioned actor for task strategy, and a frozen low-level locomotion prior for dynamic stability. For AM, the actor outputs base velocities plus arm joint targets. For WB, it outputs base velocity commands only.
+        The policy stack has two levels: a high-level goal-conditioned actor for task strategy and a frozen low-level locomotion prior for dynamic stability. The actor outputs base velocities together with arm-joint targets for arm-mediated pushing.
       </p>
       <ul>
         <li>Geometry-aware contact intent sampled from object point clouds</li>
         <li>Adaptive reach-reward curriculum for stable contact acquisition</li>
-        <li>Unified task/evaluation protocol for direct AM vs WB comparison</li>
+        <li>Evaluation across randomized objects, distribution shifts, and unseen geometries</li>
       </ul>
     </section>
 
@@ -96,37 +89,25 @@
             </tr>
           </thead>
           <tbody>
-            <tr><td>ID (WB)</td><td>86.69</td><td>79.38</td><td>82.33</td><td>79.56</td></tr>
-            <tr><td>ID (AM)</td><td>91.88</td><td>85.63</td><td>92.46</td><td>86.35</td></tr>
-            <tr><td>OOD-Geometry (WB)</td><td>59.20</td><td>35.40</td><td>73.50</td><td>64.50</td></tr>
-            <tr><td>OOD-Geometry (AM)</td><td>76.24</td><td>61.80</td><td>74.37</td><td>65.00</td></tr>
-            <tr><td>OOD-Physics (WB)</td><td>67.50</td><td>38.12</td><td>51.00</td><td>47.50</td></tr>
-            <tr><td>OOD-Physics (AM)</td><td>66.87</td><td>51.88</td><td>70.00</td><td>66.87</td></tr>
+            <tr><td>ID</td><td>91.88</td><td>85.63</td><td>92.46</td><td>86.35</td></tr>
+            <tr><td>OOD Geometry</td><td>76.24</td><td>61.80</td><td>74.37</td><td>65.00</td></tr>
+            <tr><td>OOD Physics</td><td>66.87</td><td>51.88</td><td>70.00</td><td>66.87</td></tr>
           </tbody>
         </table>
       </div>
       <p class="note">Criterion 1 (C1) uses translation and yaw tolerances of 15 cm and 15°, respectively. Criterion 2 (C2) uses stricter tolerances of 10 cm and 10°.</p>
-      <p class="note">AM is also more efficient on successful episodes: 10.40s vs 20.58s average completion time, and 5.05m vs 14.99m average base path length.</p>
     </section>
 
     <section class="panel">
-      <h2>Video Results: Single-Object Comparison</h2>
+      <h2>Video Results: Parametric Objects</h2>
       <div class="video-grid two-up">
         <article>
           <h3>Box • Single Object • AM</h3>
           <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_single_am.mp4" type="video/mp4"></video>
         </article>
         <article>
-          <h3>Box • Single Object • WB</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_single_wb.mp4" type="video/mp4"></video>
-        </article>
-        <article>
           <h3>Cylinder • Single Object • AM</h3>
           <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/cylinder_single_am.mp4" type="video/mp4"></video>
-        </article>
-        <article>
-          <h3>Cylinder • Single Object • WB</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/cylinder_single_wb.mp4" type="video/mp4"></video>
         </article>
       </div>
     </section>
@@ -137,10 +118,6 @@
         <article>
           <h3>Mixed Box/Cylinder • Group • AM</h3>
           <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_cylinder_group_am.mp4" type="video/mp4"></video>
-        </article>
-        <article>
-          <h3>Cylinder • Group • WB</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/cylinder_group_wb.mp4" type="video/mp4"></video>
         </article>
       </div>
     </section>
@@ -161,9 +138,8 @@
     </section>
 
     <section class="panel">
-      <h2>Video Results: Multi-Object Rollouts</h2>
-      <div class="video-grid two-up">
-        <article><h3>Box/Cylinder • Group • WB</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_cylider-wb.mp4" type="video/mp4"></video></article>
+      <h2>Arm-Mediated Rollout</h2>
+      <div class="video-grid">
         <article><h3>AM Rollout</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/efficiency/am_rollout.mp4" type="video/mp4"></video></article>
       </div>
     </section>
