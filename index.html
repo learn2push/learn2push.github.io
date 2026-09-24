@@ -21,13 +21,8 @@
       <h1 class="main-title">Learn2Push: Learning Non-Prehensile Manipulation Across Object Families with Legged Mobile Manipulators</h1>
       <p class="subtitle">Ebasa Temesgen, Minghao Zou, Xun Tu, Maria Gini, and Karthik Desingh</p>
       <div class="publication-links">
-        <a href="#" role="button" aria-disabled="true" onclick="return false;" class="link-button">Paper</a>
-        <a href="#" role="button" aria-disabled="true" onclick="return false;" class="link-button">Preprint</a>
-        <a href="#" role="button" aria-disabled="true" onclick="return false;" class="link-button">Video</a>
-        <a href="#" role="button" aria-disabled="true" onclick="return false;" class="link-button">Code</a>
-        <a href="#" role="button" aria-disabled="true" onclick="return false;" class="link-button">Data</a>
+        <a href="./IROS2026__Learn2Push%20(2).pdf" target="_blank" rel="noopener" class="link-button">Paper</a>
       </div>
-      <p class="subtitle">Code, model checkpoints, and full supplementary materials will be released after review.</p>
       <div class="chip-row">
         <span class="chip">Hierarchical RL</span>
         <span class="chip">Arm-Mediated Pushing</span>
@@ -98,73 +93,6 @@
       <p class="note">Criterion 1 (C1) uses translation and yaw tolerances of 15 cm and 15°, respectively. Criterion 2 (C2) uses stricter tolerances of 10 cm and 10°.</p>
     </section>
 
-    <section class="panel">
-      <h2>Video Results: Parametric Objects</h2>
-      <div class="video-grid two-up">
-        <article>
-          <h3>Box • Single Object • AM</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_single_am.mp4" type="video/mp4"></video>
-        </article>
-        <article>
-          <h3>Cylinder • Single Object • AM</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/cylinder_single_am.mp4" type="video/mp4"></video>
-        </article>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Video Results: Grouped Box/Cylinder Tasks</h2>
-      <div class="video-grid">
-        <article>
-          <h3>Mixed Box/Cylinder • Group • AM</h3>
-          <video controls playsinline preload="metadata"><source src="./static/media/videos/modality/box_cylinder_group_am.mp4" type="video/mp4"></video>
-        </article>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Video Results: Unseen Objects</h2>
-      <div class="video-grid">
-        <article><h3>Armchair</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/armchair.mp4" type="video/mp4"></video></article>
-        <article><h3>Chair + Desk</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/chair_desk.mp4" type="video/mp4"></video></article>
-        <article><h3>Wire Computer Cart</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/chair_wire_cart.mp4" type="video/mp4"></video></article>
-        <article><h3>Ottoman</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/ottoman.mp4" type="video/mp4"></video></article>
-        <article><h3>Anza Large</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/anza_large_rl_video-step-0.mp4" type="video/mp4"></video></article>
-        <article><h3>Roxana Round Coffee Table</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/roxana_round_coffee_table_rl_video-step-0.mp4" type="video/mp4"></video></article>
-        <article><h3>Steel Box Truck</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/steel_box_truck_a01_01_rl_video-step-0.mp4" type="video/mp4"></video></article>
-        <article><h3>Table Trolley</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/table_trolley_b01_01_rl_video-step-0.mp4" type="video/mp4"></video></article>
-        <article><h3>Wire Cart (Alt)</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/generalization/wire_computer_cart_a01_01_rl_video-step-0.mp4" type="video/mp4"></video></article>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Arm-Mediated Rollout</h2>
-      <div class="video-grid">
-        <article><h3>AM Rollout</h3><video controls playsinline preload="metadata"><source src="./static/media/videos/efficiency/am_rollout.mp4" type="video/mp4"></video></article>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2>Real-World Deployment</h2>
-      <p>
-        As an initial step toward real-world transfer, we conduct a real-twin feasibility study on Spot by replicating the simulation task setup in the physical environment. We record the policy's high-level commands in simulation, including SE(2) base velocities and arm targets, and replay them on hardware in a matched setting while tracking the commands. This demonstrates that the task structure transfers to the robot and motivates future closed-loop onboard deployment.
-      </p>
-      <div class="video-grid two-up">
-        <article>
-          <h3>Spot Deployment • Trial 1</h3>
-          <video controls playsinline preload="metadata">
-            <source src="./static/media/videos/real-world-test/IMG_8496.mp4" type="video/mp4">
-          </video>
-        </article>
-        <article>
-          <h3>Spot Deployment • Trial 2</h3>
-          <video controls playsinline preload="metadata">
-            <source src="./static/media/videos/real-world-test/IMG_8503.mp4" type="video/mp4">
-          </video>
-        </article>
-      </div>
-      <p class="note"> Spot pushes a chair to the goal pose after policy deployment in a real-world setting.</p>
-    </section>
   </main>
 
 </body>
